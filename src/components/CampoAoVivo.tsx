@@ -71,10 +71,10 @@ function calcularPosicoes(time: Time, ehCasa: boolean): PosicaoBolinha[] {
   });
 }
 
-const corRaridade: Record<string, string> = {
-  comum: "bg-common border-common", raro: "bg-rare border-rare",
-  epico: "bg-epic border-epic", lendario: "bg-legendary border-legendary",
-};
+// Cor por TIME (não por raridade): casa = azul, fora = vermelho. Era pedido
+// explicitamente pelo usuário para distinguir os times no campo ao vivo.
+const COR_CASA = "bg-blue-600 border-blue-300";
+const COR_FORA = "bg-red-600 border-red-300";
 
 export function CampoAoVivo({ casa, fora, eventoAtual, cobrancaAtual, modo = "partida", velocidade = "rapida" }: Props) {
   const posCasa = calcularPosicoes(casa, true);
