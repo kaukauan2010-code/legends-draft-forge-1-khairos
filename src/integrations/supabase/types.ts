@@ -66,6 +66,8 @@ export type Database = {
           id: string
           jogador1_id: string
           jogador2_id: string
+          log_eventos: Json
+          penaltis: Json | null
           placar1: number
           placar2: number
           rodada: number
@@ -78,6 +80,8 @@ export type Database = {
           id?: string
           jogador1_id: string
           jogador2_id: string
+          log_eventos?: Json
+          penaltis?: Json | null
           placar1?: number
           placar2?: number
           rodada?: number
@@ -90,6 +94,8 @@ export type Database = {
           id?: string
           jogador1_id?: string
           jogador2_id?: string
+          log_eventos?: Json
+          penaltis?: Json | null
           placar1?: number
           placar2?: number
           rodada?: number
