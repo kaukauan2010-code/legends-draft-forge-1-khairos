@@ -820,22 +820,22 @@ function TimeEscalacao({ time, titulo }: { time: Time; titulo: string }) {
     <div className="rounded-xl border border-border bg-card p-2">
       <div className="text-[9px] uppercase tracking-widest text-muted-foreground text-center mb-1">{titulo}</div>
       <div className="flex items-center gap-1 mb-2 justify-center">
-        <span className="text-base">{time.bandeira}</span>
+        <span className="text-base">{time.isCPU ? time.bandeira : "🏆"}</span>
         <span className="font-display text-[10px] uppercase font-bold truncate">{time.nome}</span>
       </div>
       <ul className="space-y-1">
         {time.escalacao.map(j => (
           <li key={j.slotId} className={cn(
             "flex items-center gap-1.5 rounded border-l-2 bg-secondary/40 px-1.5 py-1",
-            `border-rarity-${RARIDADE_CSS[j.raridade]}`,
+            RARIDADE_BORDER_CLASS[j.raridade],
           )}>
-            <span className={cn("font-display text-[10px] font-black w-4 text-center tabular-nums", `rarity-${RARIDADE_CSS[j.raridade]}`)}>{j.numero}</span>
+            <span className={cn("font-display text-[10px] font-black w-4 text-center tabular-nums", RARIDADE_TEXT_CLASS[j.raridade])}>{j.numero}</span>
             <div className="flex-1 min-w-0">
               <div className="text-[10px] font-bold leading-tight truncate">{j.nome}</div>
               <div className="flex items-center gap-1 text-[8px] uppercase tracking-widest">
                 <span className="text-muted-foreground">{j.posicao}</span>
                 <span className="text-muted-foreground">·</span>
-                <span className={cn("font-bold", `rarity-${RARIDADE_CSS[j.raridade]}`)}>{j.raridade}</span>
+                <span className={cn("font-bold", RARIDADE_TEXT_CLASS[j.raridade])}>{RARIDADE_LABEL[j.raridade]}</span>
               </div>
             </div>
             <span className="font-display text-xs font-black tabular-nums">{j.forcaEfetiva}</span>
