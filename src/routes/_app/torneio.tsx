@@ -177,6 +177,9 @@ function Torneio() {
           const foraTime = confrontoAntes?.fora ?? adv ?? meu;
           if (!casaTime || !foraTime) return;
           setTimeout(() => {
+            // CRÍTICO: limpa partidaAtiva ANTES de mostrar pênaltis. Sem isso,
+            // o render fica preso na tela de partida ao vivo e a disputa nunca aparece.
+            setPartidaAtiva(null);
             setPenaltisAoVivo({ casa: casaTime!, fora: foraTime!, cobrancas: ultimoJogo.penaltis!.cobrancas, indiceAtual: 0 });
           }, 1200);
           return;
