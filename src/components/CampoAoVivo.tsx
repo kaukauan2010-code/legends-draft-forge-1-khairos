@@ -48,25 +48,28 @@ const ATRACAO_BOLA: Record<Velocidade, number> = {
 
 
 
-// Converte as coordenadas de um time para o sistema do campo combinado:
-// casa ocupa a metade de cima (seu gol em y=4, ataque avança até y≈48)
-// fora ocupa a metade de baixo (seu gol em y=96, ataque avança até y≈52), espelhado.
+// Converte as coordenadas de um time para o sistema do campo HORIZONTAL:
+// casa ocupa a metade esquerda (gol em x=4, ataque avança até x≈48)
+// fora ocupa a metade direita (gol em x=96, ataque avança até x≈52), espelhado.
+// O eixo Y do campo passa a ser a LARGURA do gramado (slot.x original).
 function calcularPosicoes(time: Time, ehCasa: boolean): PosicaoBolinha[] {
   return time.formacao.slots.map(slot => {
     const jog = time.escalacao.find(j => j.slotId === slot.id);
-    // slot.y: 0 = ataque do próprio time, 100 = goleiro do próprio time.
-    // Casa: mapeia para 4 (seu gol) .. 48 (zona de ataque, perto do meio).
-    // Fora: espelha — mapeia para 96 (seu gol) .. 52 (zona de ataque, perto do meio).
-    const yCombinado = ehCasa
-      ? 4 + (slot.y / 100) * 44   // y=100(gol)→48 ... y=0(ataque)→4
-      : 96 - (slot.y / 100) * 44; // y=100(gol)→52 ... y=0(ataque)→96
+    // slot.y original: 0 = ataque do próprio time, 100 = goleiro do próprio time.
+    // No campo horizontal isso vira o eixo X:
+    // Casa: y=100(gol)→x=4 ... y=0(ataque)→x=48
+    // Fora: y=100(gol)→x=96 ... y=0(ataque)→x=52
+    const xCombinado = ehCasa
+      ? 4 + (slot.y / 100) * 44
+      : 96 - (slot.y / 100) * 44;
+    // slot.x original (0=esquerda, 100=direita do time) vira o eixo Y do campo.
     return {
       id: slot.id,
       nome: jog?.nome ?? "?",
       numero: jog?.numero ?? 0,
       raridade: jog?.raridade ?? "comum",
-      x: slot.x,
-      y: yCombinado,
+      x: xCombinado,
+      y: slot.x,
       timeCasa: ehCasa,
     };
   });
