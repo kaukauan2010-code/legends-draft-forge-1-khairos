@@ -50,12 +50,20 @@ function OnlineRoute() {
 function Online() {
   const { user, isAnonymous } = useAuth();
   const navigate = useNavigate();
-  const [tab, setTab] = useState<"criar" | "entrar">("criar");
+  const search = Route.useSearch();
+  const [tab, setTab] = useState<"criar" | "entrar">(search.codigo ? "entrar" : "criar");
   const [comp, setComp] = useState<Competicao>("copa");
   const [modo, setModo] = useState<Modo>("classico");
-  const [codigoEntrar, setCodigoEntrar] = useState("");
+  const [codigoEntrar, setCodigoEntrar] = useState(search.codigo ?? "");
   const [nomeVisitante, setNomeVisitante] = useState("");
   const [busy, setBusy] = useState(false);
+
+  // Se vier ?codigo= e o usuário estiver logado e não for anônimo, pula direto pro lobby
+  useEffect(() => {
+    if (search.codigo && user && !isAnonymous) {
+      navigate({ to: "/online/$codigo", params: { codigo: search.codigo.toUpperCase() } });
+    }
+  }, [search.codigo, user, isAnonymous, navigate]);
 
   const meuNome =
     (isAnonymous ? nomeVisitante.trim() : user?.user_metadata?.full_name)
