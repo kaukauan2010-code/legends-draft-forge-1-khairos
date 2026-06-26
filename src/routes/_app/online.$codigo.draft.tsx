@@ -189,6 +189,8 @@ function DraftOnline() {
       navigate({ to: "/online" });
     };
 
+    const abandonarLocal = abandonar;
+
     return (
       <div className="mx-auto max-w-md px-4 py-6 space-y-6 animate-enter">
         <header className="flex items-start justify-between gap-2">
