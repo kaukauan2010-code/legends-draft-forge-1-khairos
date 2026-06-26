@@ -312,7 +312,11 @@ function DraftOnline() {
       }
     };
     return (
-      <div className="mx-auto max-w-md px-4 py-6 space-y-5 pb-10 animate-enter">
+      <div className="mx-auto max-w-md px-4 py-6 space-y-5 pb-10 animate-enter relative">
+        <Button onClick={abandonar} variant="ghost" size="sm"
+          className="absolute right-3 top-3 text-destructive h-7 px-2 text-[10px] uppercase tracking-widest font-bold z-10">
+          <X className="size-3 mr-1" /> Sair
+        </Button>
         <header className="text-center space-y-2">
           <Hourglass className="mx-auto size-10 text-primary animate-pulse" />
           <h1 className="font-display text-2xl uppercase italic tracking-tight">
