@@ -158,6 +158,13 @@ function DraftOnline() {
 
   const limite = sala.modo === "almanaque" ? 1 : 3;
 
+  const abandonar = async () => {
+    if (!sala || !user) return;
+    if (!confirm("Abandonar a sala? Você perderá o progresso do draft.")) return;
+    await supabase.from("sala_jogadores").delete().eq("sala_id", sala.id).eq("user_id", user.id);
+    navigate({ to: "/online" });
+  };
+
   // ====== ETAPA 0: ainda não escolheu formação/estratégia ======
   if (!meuDraft) {
     const comecar = async () => {
