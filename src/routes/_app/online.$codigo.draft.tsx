@@ -354,7 +354,11 @@ function DraftOnline() {
 
   // ====== LOOP PRINCIPAL DO DRAFT ======
   return (
-    <div className="mx-auto max-w-5xl px-4 py-4 space-y-4">
+    <div className="mx-auto max-w-5xl px-4 py-4 space-y-4 relative">
+      <Button onClick={abandonar} variant="ghost" size="sm"
+        className="absolute right-3 top-3 text-destructive h-7 px-2 text-[10px] uppercase tracking-widest font-bold z-20">
+        <X className="size-3 mr-1" /> Sair
+      </Button>
       <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-destructive/30 bg-destructive/5 p-3">
         <div className="min-w-0">
           <div className="text-[10px] uppercase tracking-widest text-destructive">Draft Online · {sala.codigo}</div>
